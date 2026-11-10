@@ -1,0 +1,101 @@
+
+
+DROP TABLE IF EXISTS songs;
+CREATE TABLE songs(
+song_id INTEGER PRIMARY KEY,
+title VARCHAR(50) NOT NULL,
+artist VARCHAR(40) NOT NULL,
+genre VARCHAR(20),
+mood VARCHAR(20),
+streams_m DECIMAL(6,1) DEFAULT 0,
+release_year INTEGER,
+duration_sec INTEGER
+);
+--INSERT a new record into the songs TABLE
+INSERT INTO songs(song_id,title,artist,genre,mood,streams_m,release_year,duration_sec
+)
+VALUES(1,'Midnight Matatu','Zuri K','Afrobeats','Hype','185.4','2024','192'),
+(2,'pesa calling','DJ Kimani','Gengetone','Hype','92.3','2023','178'),
+(3,'Chai at 3AM','Wanjiru','Bongoflava','Chill','45.8','2022','210'),
+(4,'Campus crush','Tito vibes','Afrobeats','Heartbreak','120.6','2025','201'),
+(5,'Lecture Hall Lo-Fi','Nuru Beats','Lo-Fi','Study','33.2','2024','245'),
+(6,'Leg Day Anthem','Brawn K','Hip-Hop','Gym','78.9','2023','187'),
+(7,'Ghosted','Amani','RnB','Heartbreak','150.2','2025','195'),
+(8,'Log in, Log out','Cyber Sisi','Amapiano','Hype','210.7','2025','224'),
+(9,'Sunday Reset','Wanjiru','Bongoflava','Chill','28.4','2024','232'),
+(10,'Deadline Szn','Nuru Beats','Lo-Fi','Study','51.0','2025','260'),
+(11,'Main Character','Zuri K','Afrobeats','Hype','99.9','2023','199'),
+(12,'No Network','Tito vibes','Hip-Hop','Heartbreak','64.5','2022','205'),
+(13,'Piga Hustle','DJ Kimani','Gengetone','Gym','87.1','2024','183'),
+(14,'Mtaa Sunrise','Amani','RnB','Chill','39.7','2021','218'),
+(15,'Stadium lights','Brawn K','Hip-Hop','Gym','140.3','2025','176');
+SELECT COUNT (*) AS total_songs FROM songs;
+--SELECT all column from the songs table
+SELECT * FROM songs;
+--SELECT title, artist FROM songs
+SELECT title, artist FROM songs;
+--SELECT Gym FROM the songs table
+SELECT title, artist FROM songs WHERE mood='Gym';
+--SELECT songs with streams_m more than 100 
+SELECT * FROM songs WHERE streams_m>100;
+--SELECT songs released in 2025
+SELECT * FROM songs WHERE release_year =2025;
+--SELECT where mood is hype and shorter than 200 sec
+SELECT title, duration_sec FROM  songs WHERE mood='Hype' AND duration_sec < 200;
+--SELECT songs by Zuri K or Wanjiru
+SELECT * FROM songs WHERE artist ='Zuri K' OR artist = 'Wanjiru';
+--SELECT WHERE genre IS Hip-Hop OR Gengetone night
+SELECT * FROM songs WHERE genre IN ('Hip-Hop', 'Gengetone');
+--SELECT WHERE SONGS released between 2022 to 2023
+SELECT * FROM songs  WHERE release_year BETWEEN 2022 AND 2023;
+--Title starting with letter M
+SELECT * FROM songs WHERE title LIKE 'M%';
+--SELECT 5 most streamed songs,biggest first
+SELECT genre, streams_m FROM songs ORDER BY streams_m DESC LIMIT 5;
+--SELECT genre FROM songs
+SELECT DISTINCT genre FROM songs;
+--SELECT total number of songs
+SELECT COUNT (*) AS total_songs FROM songs;
+--SELECT total streams_m rounded to 1 DECIMAL
+SELECT ROUND(SUM(streams_m), 1) AS total_streams_m FROM songs;
+--SELECT average streams_m per song rounded to 1 DECIMAL
+SELECT ROUND(AVG(streams_m),1) AS average_streams_m FROM songs;
+--SELECT biggest and Smallest streams_m
+SELECT MAX(streams_m) AS biggest, MIN(streams_m) AS Smallest FROM songs;
+--SELECT song title with its length in minutes
+SELECT title, ROUND(duration_sec/60.0,1) AS minutes FROM songs;
+--Display how many songs each genre has
+SELECT genre, COUNT (*) AS total_songs FROM songs GROUP BY genre;
+--update the log in and log out
+UPDATE songs SET streams_m =streams_m + 10000000 WHERE title ='log in,log out';
+--change genre of the songs
+UPDATE songs SET genre = 'afro-fusion' WHERE genre = 'Zuri K';
+--Delete mtaa sunrise title from the library
+DELETE FROM songs WHERE title = 'Mtaa Sunrise';
+--Display 14 rows
+ SELECT * FROM songs;
+ --Add a new column called likes
+ ALTER TABLE songs ADD column likes INTEGER DEFAULT 0;
+ --update log in and log out, Midnight Matatu
+ UPDATE songs SET likes = 500 WHERE title = 'log in, log out';
+ UPDATE songs SET likes = 320 WHERE title = 'Midnight Matatu';
+ --show the title and likes of every song
+ SELECT title, likes FROM songs ORDER BY likes DESC;
+--SELECT * FORM songs
+SELECT * FROM songs;
+--SELECT title artist FROM songs
+SELECT title, artist FROM songs;
+SELECT * FROM songs WHERE mood = 'Gym';
+INSERT INTO songs VALUES (16,'New song', 'Me');
+
+
+
+
+
+
+
+
+
+
+
+
